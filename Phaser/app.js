@@ -9,6 +9,7 @@ function preload(){
   game.load.image('sky', 'assets/sky.png');
   game.load.image('ground', 'assets/platform.png');
   game.load.image('star', 'assets/star.png');
+  game.load.image('diamond', 'assets/diamond.png');
   game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
   game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
 
@@ -80,6 +81,13 @@ function create(){
     star.body.bounce.y = 0.7 + Math.random()*0.2;
   }
 
+   diamonds = game.add.physicsGroup();
+  diamonds.enableBody = true;
+  for(var i = 0; i < 2; i++){
+    var diamond = diamonds.create(i*70, 0, 'diamond');
+    diamond.body.gravity.y = 200;
+    diamond.body.bounce.y = 0.7 + Math.random()*0.2;
+
   cursors = game.input.keyboard.createCursorKeys();
 }
 
@@ -87,6 +95,7 @@ function update(){
   game.physics.arcade.collide(player, platforms);
   game.physics.arcade.collide(enemy1, platforms);
   game.physics.arcade.collide(stars, platforms);
+  game.physics.arcade.collide(diamonds, platforms);
 
   //player still if no events
   player.body.velocity.x = 0;
@@ -109,6 +118,7 @@ function update(){
 
   game.physics.arcade.overlap(player, stars, collectStar);
   game.physics.arcade.overlap(player, enemy1, loseLife);
+  game.physics.arcade.overlap(player, diamonds, collectDiamond);
 
   moveEnemy();
 
@@ -140,6 +150,14 @@ function loseLife(player, enemy){
 
   enemy.kill();
   enemy.reset(10,10);
+}
+
+function collectDiamond(player, diamond){
+  score += 60;
+  scorenumber.setText(score);
+
+  diamond.kill();
+  diamond.reset(Math.random()*750, 0);
 }
 
 function moveEnemy(){
