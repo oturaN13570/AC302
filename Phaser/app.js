@@ -87,7 +87,7 @@ function create(){
     var diamond = diamonds.create(i*70, 0, 'diamond');
     diamond.body.gravity.y = 200;
     diamond.body.bounce.y = 0.7 + Math.random()*0.2;
-
+  }
   cursors = game.input.keyboard.createCursorKeys();
 }
 
@@ -168,7 +168,7 @@ function moveEnemy(){
     enemy1.animations.play('right');
     enemy1.body.velocity.x = 120;
   }
-  
+
 }
 
 
