@@ -168,6 +168,7 @@ function moveEnemy(){
     enemy1.animations.play('right');
     enemy1.body.velocity.x = 120;
   }
+  
 }
 
 
